@@ -1,0 +1,30 @@
+{% block header %}
+    {% include 'produits/header.html' %}
+{% endblock %}
+
+<div class="row m-5">
+    {% for produit in produits%}
+    <div class="col-lg-2 col-md-4 col-sm-6 mt-3" >
+        <div class="card" style="box-shadow: #ddd 0px 0px 19px 1px;">
+            <img class="card-img-top p-2" src="{{ produit.image.url}}" alt="">
+            <div class="card-body">
+                <div id="prod{{ produit.id }}" class="card-tilte">{{ produit.designation }}</div>  
+                <div id="prix{{ produit.id }}" class="card-text">{{ produit.prix }}</div>
+                <a href="{{ produit.slug }}" class="btn btn-success">Detail</a>
+                <button id="{{ produit.id }}" class=" rec btn btn-danger">Ajouter</button>
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+    
+    
+
+
+
+
+{% block footer %}
+
+{% include 'produits/footer.html' %}
+{% endblock  %}

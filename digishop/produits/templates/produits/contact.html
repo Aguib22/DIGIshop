@@ -1,0 +1,117 @@
+{% load static %}
+
+{% block header%}
+    {% include 'produits/header.html' %}
+{% endblock %}
+
+        <div class="brand_color">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="titlepage">
+                            <h2>Contact Us</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- contact -->
+        <div class="contact">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12" id="contacts">
+
+                        <form class="main_form" novalidate action="{% url 'home' %}" id="loginForm">
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                    <small></small>
+                                    <input class="form-control espace" placeholder="Your name" type="text" name="name">
+                                    
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                    <small></small>
+                                    <input class="form-control espace" placeholder="Email" type="text" name="email">
+                                    
+                                </div>
+                                <div class=" col-md-12">
+                                    <small></small>
+                                    <input class="form-control espace" placeholder="Phone" type="text" name="Phone">
+                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <small></small>
+                                    <textarea type ="text" class="textarea form-control espace" placeholder="Message" name="Message"></textarea>
+                                
+                                </div>
+                                <div class=" col-md-12">
+                                    <small></small>
+                                    <button class="send" type="submit">envoyer</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end contact -->
+
+    {% block footer %}
+        {% include 'produits/footer.html' %}
+    {% endblock %}
+    <script src="{% static 'produits/js/customise.js' %}"></script>
+    <!-- <script src="{% static 'produits/js/panier.js' %}"></script> -->
+    <script>
+           if(localStorage.getItem('panier') == null){
+    var panier = {};
+}else{
+    panier = JSON.parse(localStorage.getItem('panier'));
+}
+$(document).on('click', '.rec',function(){
+    var item_id = this.id.toString();
+    if(panier[item_id] != undefined){
+         var qte = panier[item_id][0] +1;
+        
+         panier[item_id][0] = qte;
+         panier[item_id][2] += parseFloat(document.getElementById('prix'+item_id).innerHTML);
+    }else{
+        qte = 1;
+        prix = parseFloat(document.getElementById('prix'+item_id).innerHTML);
+        name= document.getElementById("prod"+item_id).innerHTML;
+        panier[item_id] = [qte, name, prix];
+        
+    }
+    console.log(panier);
+    localStorage.setItem('panier',JSON.stringify(panier));
+    
+    var prod =Object.keys(panier).length;
+    document.getElementById('panier').innerHTML=`Panier(${prod})`;
+
+    
+});
+liste_panier(panier);
+
+function liste_panier(cart){
+    var panierChaine = "";
+    panierChaine += '<h1>Mon panier</h1>' ;
+    index = 1;
+    for(var i in panier){
+        panierChaine += index +") ";
+        panierChaine += document.getElementById("prod"+i).innerHTML +  "   Qte: " + panier[i] +"</br>";
+        index += 1;
+
+    }
+    panierChaine += '<a href="{% url "checkout" %}" class="mt-2 btn btn-success">checkout</a>';
+    $(function(){
+    $('[data-toggle = "popover"]').popover();
+    document.getElementById('panier').setAttribute('data-content',panierChaine);
+});
+
+
+    
+}
+    </script>
+
+
+</html>
