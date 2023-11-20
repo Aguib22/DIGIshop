@@ -26,5 +26,6 @@ urlpatterns = [
     path('checkout/',views.checkout, name= 'checkout'),
     path('confirmation/',views.confirmation,name='confirmation'),
     path('search/',views.search, name= 'search'),
+    path('panier/',views.panier,name= 'panier'),
    
 ]

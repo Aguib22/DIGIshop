@@ -27,7 +27,7 @@
                             <div class="row">
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                     <small></small>
-                                    <input class="form-control espace" placeholder="Your name" type="text" name="name">
+                                    <input class="form-control espace" placeholder="Votre nom" type="text" name="name">
                                     
                                 </div>
                                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
@@ -60,7 +60,7 @@
     {% block footer %}
         {% include 'produits/footer.html' %}
     {% endblock %}
-    <script src="{% static 'produits/js/customise.js' %}"></script>
+    <!-- <script src="{% static 'produits/js/customise.js' %}"></script> -->
     <!-- <script src="{% static 'produits/js/panier.js' %}"></script> -->
     <script>
            if(localStorage.getItem('panier') == null){
@@ -90,27 +90,27 @@ $(document).on('click', '.rec',function(){
 
     
 });
-liste_panier(panier);
+// liste_panier(panier);
 
-function liste_panier(cart){
-    var panierChaine = "";
-    panierChaine += '<h1>Mon panier</h1>' ;
-    index = 1;
-    for(var i in panier){
-        panierChaine += index +") ";
-        panierChaine += document.getElementById("prod"+i).innerHTML +  "   Qte: " + panier[i] +"</br>";
-        index += 1;
+// function liste_panier(cart){
+//     var panierChaine = "";
+//     panierChaine += '<h1>Mon panier</h1>' ;
+//     index = 1;
+//     for(var i in panier){
+//         panierChaine += index +") ";
+//         panierChaine += document.getElementById("prod"+i).innerHTML +  "   Qte: " + panier[i] +"</br>";
+//         index += 1;
 
-    }
-    panierChaine += '<a href="{% url "checkout" %}" class="mt-2 btn btn-success">checkout</a>';
-    $(function(){
-    $('[data-toggle = "popover"]').popover();
-    document.getElementById('panier').setAttribute('data-content',panierChaine);
-});
+//     }
+//     panierChaine += '<a href="{% url "checkout" %}" class="mt-2 btn btn-success">checkout</a>';
+//     $(function(){
+//     $('[data-toggle = "popover"]').popover();
+//     document.getElementById('panier').setAttribute('data-content',panierChaine);
+// });
 
 
     
-}
+// }
     </script>
 
 

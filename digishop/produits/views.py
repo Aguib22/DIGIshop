@@ -9,6 +9,9 @@ def home(request):
     
     produits = Produits.objects.all()
     categories = Categories.objects.all()
+    paginator = Paginator(produits,12)
+    page = request.GET.get('page')
+    produits= paginator.get_page(page)
     context = {
         'produits':produits,
         'categories':categories,
@@ -81,5 +84,9 @@ def search(request):
 
 
     return render(request,'produits/search.html')
+
+def panier(request):
+
+    return render(request,'produits/panier.html')
 
 

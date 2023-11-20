@@ -1,0 +1,205 @@
+{% block header %}
+    {% include 'produits/header.html' %}
+{% endblock %}
+ <style>
+    .wrapper{
+        display: flex;
+        height: 50px;
+        min-width: 200px;
+        
+        align-items:center;
+        justify-content: center;
+        background: #FFF;
+        border-radius: 12px;
+        box-shadow: 0 5px 10px  rgba(0,0,0,0.2);
+    }
+    .wrapper span{
+        width: 100%;
+        text-align: center;
+        font-size:1.5em;
+        font-weight: 600;
+        cursor: pointer;
+    }
+    .wrapper span.num{
+        font-size:1.5em;
+        border-right: 2px solid rgba(0,0,0,0.2);
+        border-left: 2px solid rgba(0,0,0,0.2);
+        pointer-events: none;
+    }
+ </style>
+
+
+<div class="row " style="margin: 5%;box-shadow: #ddd 0px 0px 19px 1px;position: relative;" >
+    <div class="col-12">
+        <ul class="list-group" id="liste-prod">
+            <h1 class="text-center">Mon Panier</h1>
+           
+        </ul>
+        <div id="panier-vide-msg" style="display: none;font-weight: bold;text-align: center;">Votre panier est vide</div>
+
+    </div>
+    
+    <div class="col-lg-6 m-3" style="transform: translateX(70%);">
+        <a href="{% url 'checkout' %}" class="mt-2 btn btn-success check">commander</a>
+    </div>
+</div><hr>
+<div class="row m-5 d-flex align-items-center">
+    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum repellat dolores neque officiis perferendis, ipsum iure sed earum
+         enim ullam optio alias? Dignissimos corporis recusandae enim ab quia eaque illo!</p>
+</div>
+
+
+
+{% block footer %}
+
+    {% include 'produits/footer.html' %}
+{% endblock  %}
+<script type="text/javascript">
+   
+     
+    if(localStorage.getItem('panier')== null){
+        var panier = {};
+    }else{
+        panier = JSON.parse(localStorage.getItem('panier'));
+    }
+    var tot = 0;
+    var prix_tot = 0;
+    for (item in panier) {
+    let nom_prod = panier[item][1];
+    let qte_prod = panier[item][0];
+    let prix_prod = panier[item][2];
+    let img = panier[item][3];
+
+    // Création de l'élément pour afficher le produit avec ses détails
+    var contenu_list = `<li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+            
+            <h5 style="font-weight: bolder; font-size: 1.5em">${nom_prod}</h5>
+        </div>
+        <div>
+            <button class="btn  btn-md moins-btn" data-item="${item}">-</button> <!-- Bouton pour dimunier la quantité -->
+            <span class="badge  badge-pill quantity" style="font-size :1.3em;">${qte_prod}</span>
+            <button class="btn  btn-md plus-btn" data-item="${item}">+</button> <!-- Bouton pour augmenter la quantité -->
+        </div>
+        <div>
+            <span class="badge  badge-pill"style="font-size :1.3em;">${prix_prod} gnf</span>
+            <button class="btn btn-danger btn-sm delete-btn" data-item="${item}">X</button> <!-- Bouton pour supprimer -->
+        </div>
+        
+    </li>`;
+            
+            $('#liste-prod').append(contenu_list);
+        
+        
+    }
+
+// Récupération du panier depuis le localStorage
+var panier = JSON.parse(localStorage.getItem('panier')) || {};
+
+// Fonction pour vérifier si le panier est vide et afficher le message
+function verifierPanierVide() {
+    if (Object.keys(panier).length === 0) {
+        document.getElementById('panier-vide-msg').style.display = 'block';
+        document.querySelector('.check').style.display = 'none';
+    } else {
+        document.getElementById('panier-vide-msg').style.display = 'none';
+    }
+}
+
+// Vérifier si le panier est vide lors du chargement de la page
+verifierPanierVide();
+
+    // événement pour ajuster la quatité
+$('.plus-btn').click(function() {
+    var item = $(this).data('item');
+    panier[item][0]++;
+    // Mettre à jour l'affichage de la quantité et les totaux
+    $(this).siblings('.quantity').text(panier[item][0]);
+    // Mettre à jour le localStorage ici
+    localStorage.setItem('panier', JSON.stringify(panier));
+});
+// evenement pour diminuer la quantité
+$('.moins-btn').click(function(){
+    var item = $(this).data('item');
+    if (panier[item][0] >1){
+        panier[item][0]--;
+    }
+     // Mettre à jour l'affichage de la quantité et les totaux
+     $(this).siblings('.quantity').text(panier[item][0]);
+    // Mettre à jour le localStorage ici
+    localStorage.setItem('panier', JSON.stringify(panier));
+})
+
+// evenement pour supprimer un produit dans le panier
+$('.delete-btn').click(function() {
+    var item = $(this).data('item');
+    // Supprimer l'élément du panier et rafraîchir l'affichage
+    delete panier[item];
+    $(this).closest('li').remove();
+    // Mettre à jour le localStorage ici
+    localStorage.setItem('panier', JSON.stringify(panier));
+});
+    // var a = 1
+    // var num = document.querySelector('.num'),
+    //     plus = document.querySelector('.plus'),
+    //     moin = document.querySelector('.moin');
+    // plus.addEventListener('click',()=>{
+    //     a++;
+    //     a = (a < 10)? "0" + a : a;
+    //     num.innerText = a;
+    // });
+    // moin.addEventListener('click',()=>{
+    //     if(a > 1){
+    //         a--;
+    //         a = (a < 10)? "0" + a : a;
+    //         num.innerText = a;
+    //     }
+       
+    // });
+    
+    console.log(panier);
+    
+    // for (item in panier) {
+    // let nom_prod = panier[item][1];
+    // let qte_prod = panier[item][0];
+    // let prix_prod = panier[item][2];
+    // let img = panier[item][3];
+
+    // // Création de l'élément pour afficher le produit avec ses détails
+    // var contenu_list = `<li class="list-group-item d-flex justify-content-between align-items-center">
+    //     <div>
+    //         <img src="${img}" alt="${nom_prod}" style="width: 50px; height: 50px;"> <!-- Affichage de l'image -->
+    //         <h5 style="font-weight: bolder; font-size: 1.5em">${nom_prod}</h5>
+    //     </div>
+    //     <div>
+    //         <button class="btn btn-success btn-sm plus-btn" data-item="${item}">+</button> <!-- Bouton pour augmenter la quantité -->
+    //         <span class="badge badge-success badge-pill quantity">${qte_prod}</span>
+    //         <button class="btn btn-danger btn-sm delete-btn" data-item="${item}">Supprimer</button> <!-- Bouton pour supprimer -->
+    //         <span class="badge badge-danger badge-pill">${prix_prod} gnf</span>
+    //     </div>
+    // </li>`;
+
+//     $('#liste-prod').append(contenu_list);
+// }
+
+// Ajout des événements pour ajuster la quantité et supprimer un produit
+// $('.plus-btn').click(function() {
+//     var item = $(this).data('item');
+//     panier[item][0]++;
+//     // Mettre à jour l'affichage de la quantité et les totaux
+//     $(this).siblings('.quantity').text(panier[item][0]);
+//     // Mettre à jour le localStorage ici
+// });
+
+// $('.delete-btn').click(function() {
+//     var item = $(this).data('item');
+//     // Supprimer l'élément du panier et rafraîchir l'affichage
+//     delete panier[item];
+//     $(this).closest('li').remove();
+//     // Mettre à jour le localStorage ici
+// });
+ 
+
+   
+
+</script>

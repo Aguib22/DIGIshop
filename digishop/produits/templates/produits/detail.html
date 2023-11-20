@@ -66,25 +66,25 @@ box-shadow: #ddd 0px 0px 19px 1px;margin: 5%;transform: translateX(8%);">
         
     });
     
-    liste_panier(panier);
+//     liste_panier(panier);
 
-    function liste_panier(cart){
-    var panierChaine = "";
-    panierChaine += '<h1>Mon panier</h1>' ;
-    index = 1;
-    for(var i in panier){
-        panierChaine += index +") ";
-        panierChaine += document.getElementById("prod"+i).innerHTML +  "   Qte: " + panier[i] +"</br>";
-        index += 1;
+//     function liste_panier(cart){
+//     var panierChaine = "";
+//     panierChaine += '<h1>Mon panier</h1>' ;
+//     index = 1;
+//     for(var i in panier){
+//         panierChaine += index +") ";
+//         panierChaine += document.getElementById("prod"+i).innerHTML +  "   Qte: " + panier[i] +"</br>";
+//         index += 1;
 
-    }
-    panierChaine += '<a href="{% url "checkout" %}" class="mt-2 btn btn-success">checkout</a>';
-    $(function(){
-    $('[data-toggle = "popover"]').popover();
-    document.getElementById('panier').setAttribute('data-content',panierChaine);
-});
+//     }
+//     panierChaine += '<a href="{% url "checkout" %}" class="mt-2 btn btn-success">checkout</a>';
+//     $(function(){
+//     $('[data-toggle = "popover"]').popover();
+//     document.getElementById('panier').setAttribute('data-content',panierChaine);
+// });
    
-}
+// }
 
 </script> 
 

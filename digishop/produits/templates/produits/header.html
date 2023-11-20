@@ -19,7 +19,8 @@
     <!-- bootstrap css -->
     <link rel="stylesheet" href="{% static 'produits/css/bootstrap.min.css' %}">
     <!-- style css -->
-    <link rel="stylesheet" href="{%  static 'produits/css/mystyle.css' %}"> 
+    <!-- <link rel="stylesheet" href="{%  static 'produits/css/mystyle.css' %}"> -->
+    <link rel="stylesheet" href="{%  static 'produits/css/my_style1.css' %}"> 
     <!-- Responsive-->
     <link rel="stylesheet" href="{% static 'produits/css/madia_responsive.css' %}">
     <link rel="stylesheet" href="{% static 'produits/css/min_menu.css' %}">
@@ -58,7 +59,7 @@
                         <div class="full">
                             <div class="center-desk" >
                                 <div class="logo" >
-                                    <a href="{% url 'home' %}"><h1 style=" font-weight: bold;">DigiShop</h1></a>
+                                    <a href="{% url 'home' %}"><h1 style=" font-weight: bold;color: #046e24f1;">DIGIShop</h1></a>
                                     <!-- <a href="index.html"><img src="{% static 'produits/images/logo.png' %}" alt="#"></a> -->
                                 </div>
                             </div>
@@ -71,13 +72,12 @@
                                     <ul class="menu-area-main">
                                         <li class="active"> <a href="{% url 'home' %}">Home</a> </li>
                                         <li> <a href="#produit">produit</a> </li>
-                                        <li><a id="panier" type="button" class="text-whit" data-container="body" data-html="true" data-toggle="popover"   data-placement="bottom" data-content="lorem itsum"
-                                             style="cursor: pointer;">
-                                              Panier(0)
-                                        </a></li>
-                                       
                                         <li><a href="{% url 'contact' %}">Contact Us</a></li>
-                                       
+                                        <li><a href="{% url 'panier' %}" id="panier" >Panier(0)</a></li>
+                                        <!-- <li> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16" style="color: white;">
+                                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                          </svg></i>0</li>
+                                        -->
                                     </ul>
                                 </nav>
                             </div>

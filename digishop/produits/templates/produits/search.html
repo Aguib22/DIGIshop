@@ -3,14 +3,14 @@
 {% endblock %}
 
 <div class="row m-5">
-    {% for produit in produits%}
+    {% for produit in produits %}
     <div class="col-lg-2 col-md-4 col-sm-6 mt-3" >
         <div class="card" style="box-shadow: #ddd 0px 0px 19px 1px;">
             <img class="card-img-top p-2" src="{{ produit.image.url}}" alt="">
             <div class="card-body">
                 <div id="prod{{ produit.id }}" class="card-tilte">{{ produit.designation }}</div>  
                 <div id="prix{{ produit.id }}" class="card-text">{{ produit.prix }}</div>
-                <a href="{{ produit.slug }}" class="btn btn-success">Detail</a>
+                <a href="{% url 'detail' produit.slug %}" class="btn btn-success">Detail</a>
                 <button id="{{ produit.id }}" class=" rec btn btn-danger">Ajouter</button>
 
             </div>
@@ -28,3 +28,32 @@
 
 {% include 'produits/footer.html' %}
 {% endblock  %}
+<script type="text/javascript">
+    if(localStorage.getItem('panier') == null){
+    var panier = {};
+}else{
+    panier = JSON.parse(localStorage.getItem('panier'));
+}
+$(document).on('click', '.rec',function(){
+    var item_id = this.id.toString();
+    if(panier[item_id] != undefined){
+         var qte = panier[item_id][0] +1;
+        
+         panier[item_id][0] = qte;
+         panier[item_id][2] += parseFloat(document.getElementById('prix'+item_id).innerHTML);
+    }else{
+        qte = 1;
+        prix = parseFloat(document.getElementById('prix'+item_id).innerHTML);
+        name= document.getElementById("prod"+item_id).innerHTML;
+        panier[item_id] = [qte, name, prix];
+        
+    }
+    console.log(panier);
+    localStorage.setItem('panier',JSON.stringify(panier));
+    
+    var prod =Object.keys(panier).length;
+    document.getElementById('panier').innerHTML=`Panier(${prod})`;
+
+    
+});
+</script>

@@ -8,6 +8,7 @@
     .header-search {
         padding: 15px 0px;
     }
+   
 }
 
 
@@ -140,6 +141,7 @@
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
+    
     .logo {padding-top: 11px;}
     .location_icon_bottum {display: none;}
     .main-menu ul > li a {padding: 8px 14px ; padding-top: 20px;}

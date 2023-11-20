@@ -61,14 +61,14 @@
                 <input type="text" name="address" class="form-control" id="inputAddress" placeholder="1234 Main St">
             </div>
 
-            <div class="form-group col-md-6">
+            <div class="form-group col-12" style="position: relative;display: flex">
                <div class="m-2 col-lg-6">
-                  <label for="somme">Net à payer:</label>
+                  <label for="somme">tot à payer:</label>
                   <input type="readonly" name="somme" class="form-control" id="somme" style="
                   width: 200px;font-weight: bolder;font-size: 20px;color:rgba(243, 69, 6, 0.751);background-color: rgba(247, 247, 204, 0.882);">
                </div>
-               <div class="col-lg-6">
-                 <button type="submit" class="btn btn-success align-items-center">commander</button>
+               <div class="col-lg-6" style="transform: translate(30%,40%);">
+                 <button type="submit" class="btn btn-success align-items-center">valider</button>
                </div>
                 
             </div>
@@ -89,6 +89,7 @@
 {% include 'produits/footer.html' %}
 {% endblock  %}
 
+
 <script type="text/javascript">
     if(localStorage.getItem('panier')== null){
         var panier = {};
@@ -100,12 +101,12 @@
     for(item in panier){
         let nom_prod = panier[item][1];
         let qte_prod = panier[item][0];
-        let prix_prod = panier[item][2];
+        let prix_prod = panier[item][2]*qte_prod;
         tot += qte_prod;
         prix_tot += prix_prod;
         var contenu_list = `<li class="list-group-item d-flex justify-content-between align-items-center">
                 <h5  style="font-weight: bolder;font-size:1.5em"> ${nom_prod}</h5>
-                <span class="badge badge-success badge-pill d-flex text-align-center  " style="font-size:16px">Qte${qte_prod}</span>
+                <span class="badge badge-success badge-pill d-flex text-align-center  " style="font-size:16px">Qte:${qte_prod}</span>
                 <span class="badge badge-danger badge-pill d-flex text-align-center  " style="font-size:16px"> ${prix_prod} gnf</span>
             </li>`;
             $('#liste-prod').append(contenu_list);
